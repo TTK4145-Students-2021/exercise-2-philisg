@@ -8,27 +8,24 @@ sem_t lock;
 // Note the return type: void*
 void* incrementingThreadFunction(){
 	
-    for (int j = 0; j < 10; j++) {
+	sem_wait(&lock);
+    for (int j = 0; j < 1000000; j++) {
 		// TODO: sync access to i
-		sem_wait(&lock);
 		i++;
-		printf("+ \n"); // used for testing
-		sem_post(&lock);
+		//printf("+ \n"); // used for testing
     }
-	
+	sem_post(&lock);
     return NULL;
 }
 
 void* decrementingThreadFunction(){
-	
-    for (int j = 0; j < 11; j++) {
+	sem_wait(&lock);
+    for (int j = 0; j < 1000000; j++) {
 		// TODO: sync access to i
-		sem_wait(&lock);
 		i--;
-		printf("- \n"); // used for testing
-		sem_post(&lock);
+		//printf("- \n"); // used for testing
 	}
-	
+	sem_post(&lock);
     return NULL;
 }
 
