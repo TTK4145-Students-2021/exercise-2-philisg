@@ -2,13 +2,18 @@ Exercise 2 - Theory questions
 -----------------------------
 
 ### What is an atomic operation?
-> *Your answer here*
+> An atomic action operation is an indivisible sequence of operations which needs to be executed without interruption.
 
 ### What is a critical section?
-> *Your answer here*
+> A critical section is the part of the progrom which tries to access a shared resource. If multiple threads are in the same critical
+> section at the same time, data may be corrupted.
 
 ### What is the difference between race conditions and data races?
-> *Your answer here*
+> Data race happens when two or more threads access a shared variable at the same time, and at least one thread tries to modify it.
+> In data race the threads race against eachother to modify the data.
+> Race conditions is a condition where two or more threads access the same shared data and its behavior depends on relative timing
+> and interleaving of multiple threads or processes. 
+> A data race can occur inside a race condition but not the other way around.
 
 ### What are the differences between semaphores, binary semaphores, and mutexes?
 > *Your answer here*
