@@ -2,7 +2,7 @@ Exercise 2 - Theory questions
 -----------------------------
 
 ### What is an atomic operation?
-> An atomic action operation is an indivisible sequence of operations which needs to be executed without interruption.
+> An atomic action operation is when a processor reads and writes during the same data transmission. 
 
 ### What is a critical section?
 > A critical section is the part of the progrom which tries to access a shared resource. If multiple threads are in the same critical
