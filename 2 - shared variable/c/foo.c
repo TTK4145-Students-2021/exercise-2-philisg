@@ -43,4 +43,4 @@ int main(){
 }
 // Mutex is the preffered solution. This is because Mutex locks the resource until its done executing the critical section
 // of the code. After execution the resource is released and other threads/processes can use it. A mutex is a 
-// mutual exclusion technique while semaphore is a signaling mechanism. 
+// mutual exclusion technique while semaphore is a signaling mechanism. By using mutex we also eliminates race condition.
