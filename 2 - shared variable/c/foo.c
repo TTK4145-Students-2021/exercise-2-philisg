@@ -1,31 +1,26 @@
-#include <semaphore.h>
 #include <pthread.h>
 #include <stdio.h>
 
 int i = 0;
-sem_t lock;
-
+pthread_mutex_t lock;
 // Note the return type: void*
 void* incrementingThreadFunction(){
-	
-	sem_wait(&lock);
+	pthread_mutex_lock(&lock);
     for (int j = 0; j < 1000000; j++) {
 		// TODO: sync access to i
 		i++;
-		//printf("+ \n"); // used for testing
     }
-	sem_post(&lock);
+	pthread_mutex_unlock(&lock);
     return NULL;
 }
 
 void* decrementingThreadFunction(){
-	sem_wait(&lock);
+	pthread_mutex_lock(&lock);
     for (int j = 0; j < 1000000; j++) {
 		// TODO: sync access to i
 		i--;
-		//printf("- \n"); // used for testing
-	}
-	sem_post(&lock);
+    }
+	pthread_mutex_unlock(&lock);
     return NULL;
 }
 
@@ -33,7 +28,7 @@ void* decrementingThreadFunction(){
 int main(){
     pthread_t incrementingThread, decrementingThread;
     
-	sem_init(&lock, 0,1);
+	pthread_mutex_init(&lock, NULL);
 	
     pthread_create(&incrementingThread, NULL, incrementingThreadFunction, NULL);
     pthread_create(&decrementingThread, NULL, decrementingThreadFunction, NULL);	
@@ -41,10 +36,11 @@ int main(){
     pthread_join(incrementingThread, NULL);
     pthread_join(decrementingThread, NULL);
 	
-	sem_destroy(&lock);
+	pthread_mutex_destroy(&lock);
     
     printf("The magic number is: %d\n", i);
     return 0;
 }
-// Would use semaphore as the preferred solution. The semaphore does not lock the resource, but it signals to other that a thread is
-// using the resource.
+// Mutex is the preffered solution. This is because Mutex locks the resource until its done executing the critical section
+// of the code. After execution the resource is released and other threads/processes can use it. A mutex is a 
+// mutual exclusion technique while semaphore is a signaling mechanism. 
