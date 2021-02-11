@@ -44,21 +44,20 @@ void buf_push(struct BoundedBuffer* buf, int val){
     // TODO: wait for there to be room in the buffer
     // TODO: make sure there is no concurrent access to the buffer internals
 	sem_wait(&buf->full);// decrements semaphore. blocks when semaphore = 0.
-	sem_post(&buf->empty);// increments semaphore.
 	pthread_mutex_lock(&buf->mtx);
     rb_push(buf->buf, val);
 	pthread_mutex_unlock(&buf->mtx);
-    
+    sem_post(&buf->empty);// increments semaphore.
     // TODO: signal that there are new elements in the buffer    
 }
 
 int buf_pop(struct BoundedBuffer* buf){
     // TODO: same, but different?
-	sem_post(&buf->full); // increments semaphore.
 	sem_wait(&buf->empty); // decrements semaphore. blocks when semaphore = 0.
     pthread_mutex_lock(&buf->mtx);
     int val = rb_pop(buf->buf);    
     pthread_mutex_unlock(&buf->mtx);
+	sem_post(&buf->full); // increments semaphore.
     return val;
 }
 
