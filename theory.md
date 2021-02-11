@@ -19,14 +19,20 @@ Exercise 2 - Theory questions
 > Mutex is a mutual excusion technique which locks a resource when it needs to use it. If more than one thread wishes to use
 > the resource they have to wait until its unlocked. It can be looked at like a gate keeper.
 > A semaphore is a variable that is used for controlling access to a resource. it has no mutual exclusion. semaphore (counting semaphore)
-> uses a count that helps task to be acquired and released numerous times. 
+> uses a count that helps task to be acquired and released numerous times. The bounded buffer is a good example of this. When the value of the semaphore is
+> 0, and we try to access it by using "wait", we will not get access.
 > A binary semaphore is like a counting semaphore but is its values i restricted to 0 and 1. It also has mutual exclusion.
 
 ### What are the differences between channels (in Communicating Sequential Processes, or as used by Go, Rust), mailboxes (in the Actor model, or as used by Erlang, D, Akka), and queues (as used by Python)? 
-> *Your answer here*
+> A queue is the most basic system. Threads can insert elements and take them out safely. It allows for multiple senders and receivers.
+> A queue with one dedicated receiver is called a mailbox. Since there is only one receiver (receiving thread), the que can not be
+> accessed separately. This means that the receiving thread owns its queue.
+> If one uses multiple queues, it makes them channels. This means that a channel can have one or more sender and receivers. 
 
 ### List some advantages of using message passing over lock-based synchronization primitives.
-> *Your answer here*
+> No data race
+> Can be used asynchronous
+> Makes it easier to build parallel hardware
 
 ### List some advantages of using lock-based synchronization primitives over message passing.
-> *Your answer here*
+> Faster than message passing
